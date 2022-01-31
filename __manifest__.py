@@ -3,15 +3,14 @@
     'name': "gym_app",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Application to control the gym""",
 
     'description': """
-        Long description of module's purpose
+        Application tan allows you to control alll the aspects of what a gym needs
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "AssYuso(Angel) S.L.",
+    'website': "http://www.assyuso.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
@@ -24,12 +23,17 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
+        'security/ir.model.access.csv',
+        'views/client_view.xml',
+        'views/invoice_view.xml',
+        'views/line_view.xml',
+        'views/product_view.xml',
+        'views/menu.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
+    'application': True,
+    'installable': True,
 }

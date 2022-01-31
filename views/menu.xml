@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <!-- Top menu item -->
+    <menuitem name="Gym App" id="gym_app.menu_root"/>
+
+    <!-- menu categories -->
+    <menuitem name="Managment" id="gym_app.menu_operator" parent="gym_app.menu_root"/>
+
+   
+    <menuitem name="Clients" id="gym_app.menu_client_list" parent="gym_app.menu_operator" action="gym_app.action_window_client"/>
+
+    <menuitem name="Products" id="gym_app.menu_product_list" parent="gym_app.menu_operator" action="gym_app.action_window_product"/>
+
+    <menuitem name="Invoice" id="gym_app.menu_invoice_list" parent="gym_app.menu_operator" action="gym_app.action_window_invoice"/>
+    
+    </data>
+</odoo>
