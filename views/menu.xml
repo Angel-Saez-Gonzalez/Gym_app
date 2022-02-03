@@ -12,6 +12,12 @@
     <menuitem name="Products" id="gym_app.menu_product_list" parent="gym_app.menu_operator" action="gym_app.action_window_product"/>
 
     <menuitem name="Invoice" id="gym_app.menu_invoice_list" parent="gym_app.menu_operator" action="gym_app.action_window_invoice"/>
+
+    <menuitem name="Class" id="gym_app.menu_class_list" parent="gym_app.menu_operator" action="gym_app.action_window_class"/>
+
+    <menuitem name="Trainers" id="gym_app.menu_trainer_list" parent="gym_app.menu_operator" action="gym_app.action_window_trainer"/>
     
+    <menuitem name="Daily Tasks" id="gym_app.menu_dailytask_list" parent="gym_app.menu_operator" action="gym_app.action_window_dailytask"/>
+
     </data>
 </odoo>

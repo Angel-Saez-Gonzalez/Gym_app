@@ -3,3 +3,6 @@ access_gym_app_client_model,gym_app.client_model,model_gym_app_client_model,base
 access_gym_app_invoice_model,gym_app.invoice_model,model_gym_app_invoice_model,base.group_user,1,1,1,1
 access_gym_app_line_model,gym_app.line_model,model_gym_app_line_model,base.group_user,1,1,1,1
 access_gym_app_product_model,gym_app.product_model,model_gym_app_product_model,base.group_user,1,1,1,1
+access_gym_app_class_model,gym_app.class_model,model_gym_app_class_model,base.group_user,1,1,1,1
+access_gym_app_trainer_model,gym_app.trainer_model,model_gym_app_trainer_model,base.group_user,1,1,1,1
+access_gym_app_dailytask_model,gym_app.dailytask_model,model_gym_app_dailytask_model,base.group_user,1,1,1,1

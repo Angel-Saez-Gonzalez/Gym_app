@@ -1,29 +1,127 @@
 <odoo>
   <data>
     <!-- explicit list view definition -->
-<!--
-    <record model="ir.ui.view" id="gym_app.list">
-      <field name="name">gym_app list</field>
-      <field name="model">gym_app.gym_app</field>
+
+    <record model="ir.ui.view" id="gym_app.client_model_list">
+      <field name="name">Client List</field>
+      <field name="model">gym_app.client_model</field>
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
+          <field name="surname"/>
+          <field name="dni"/>
+          <field name="phone"/>
+          <field name="email"/>
+          <field name="subscription"/>
         </tree>
       </field>
     </record>
--->
+
+    <!-- Optional views-->
+    <record model="ir.ui.view" id="gym_app.client_kanban">
+      <field name="name">CLient kanban</field>
+      <field name="model">gym_app.client_model</field>
+      <field name="arch" type="xml">
+        <kanban class="o_res_partner_kanban">
+          <field name="dni"/>
+          <field name="name"/>
+          <field name="surname"/>
+          <field name="photo"/>
+          <field name="email"/>
+          <field name="phone"/>
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="oe_kanban_global_click">
+                <div class="o_kanban_image">
+                  <field name="photo" nolabel="1" widget="image" class="oe_right oe_avatar"/>
+                </div>
+                <div class="oe_kanban_details">
+                  <strong>
+                    <field name="surname" class="oe_inline"/>,<field name="name" class="oe_inline"/>
+                  </strong>
+                  <div t-if="record.phone.value">
+                    <t t-esc="record.phone.value"/>
+                  </div>
+                  <div t-if="record.email.value">
+                    <t t-esc="record.email.value"/>
+                  </div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
 
     <!-- actions opening views on models -->
 
     <record model="ir.actions.act_window" id="gym_app.action_window_client">
-      <field name="name">gym_app window</field>
+      <field name="name">Clients</field>
       <field name="res_model">gym_app.client_model</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">kanban,tree,form</field>
     </record>
 
-
+    <!-- Form-->
+    <record model="ir.ui.view" id="gym_app.client_model_form">
+      <field name="name">Client Form</field>
+      <field name="model">gym_app.client_model</field>
+      <field name="arch" type="xml">
+        <form string="client">
+          <header>
+            <!-- Buttons here-->
+          </header>
+          <notebook>
+            <page string="Personal data">
+              <group>
+                <group name="left">
+                  <field name="name"/>
+                  <field name="surname"/>
+                  <field name="dni"/>
+                  <field name="photo" widget="image"/>
+                  <field name="phone"/>
+                  <field name="email"/>
+                </group>
+              </group>
+            </page>
+            <page string="Invoices">
+              <group colspan="2">
+                <field name="invoice_ids">
+                  <tree>
+                    <field name="reference"/>
+                    <field name="date"/>
+                    <field name="base" widget='monetary' options="{'currency_field': %(base.EUR)d}"/>
+                    <field name="vat"/>
+                    <field name="total" widget='monetary' options="{'currency_field': %(base.EUR)d}"/>
+                  </tree>
+                </field>
+              </group>
+            </page>
+            <page string="Tasks">
+              <group colspan="2">
+                <field name="dailytask_ids">
+                  <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="date"/>
+                  </tree>
+                </field>
+              </group>
+            </page>
+            <page string="Classes">
+              <group colspan="2">
+                <field name="class_ids">
+                  <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="date"/>
+                  </tree>
+                </field>
+              </group>
+            </page>
+          </notebook>
+        </form>
+      </field>
+    </record>
     <!-- server action to the one above -->
 <!--
     <record model="ir.actions.server" id="gym_app.action_server">

@@ -19,9 +19,13 @@ class clientModel(models.Model):
     email = fields.Char(string="Email", Required = True,help="Email of the Client")
     subscription = fields.Selection(string="Type of subscription",selection=[('basic','Basic Subscription'),('advance','Advanced Subscription'),('premium','Premium Subscription')],default='basic', help="Type of subscription of the GYM")
 
-    #Relations
+    #Relations with invoice class tasks y trainer
     invoice_ids = fields.One2many("gym_app.invoice_model","client_id",string="Invoices")
+    trainer_id = fields.Many2one("gym_app.trainer_model",string="Trainer")
+    dailytask_ids = fields.Many2many("gym_app.dailytask_model",string="Task")
 
+    #Este deberia ser Many2Many
+    class_ids = fields.Many2many("gym_app.class_model",string="Class")
 
     @api.constrains("dni")
     def comprNIF(self):
