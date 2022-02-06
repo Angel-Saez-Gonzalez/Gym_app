@@ -1,60 +1,159 @@
 <odoo>
   <data>
     <!-- explicit list view definition -->
-<!--
-    <record model="ir.ui.view" id="gym_app.list">
-      <field name="name">gym_app list</field>
-      <field name="model">gym_app.gym_app</field>
+
+    <record model="ir.ui.view" id="gym_app.invoice_model_list">
+      <field name="name">invoice List</field>
+      <field name="model">gym_app.invoice_model</field>
       <field name="arch" type="xml">
         <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
+          <field name="reference"/>
+          <field name="date"/>
+          <field name="base"/>
+          <field name="vat"/>
+          <field name="total"/>
+          <field name="client_id"/>
         </tree>
       </field>
     </record>
--->
 
-    <!-- actions opening views on models -->
-
-    <record model="ir.actions.act_window" id="gym_app.action_window_invoice">
-      <field name="name">gym_app window</field>
-      <field name="res_model">gym_app.invoice_model</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-
-
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="gym_app.action_server">
-      <field name="name">gym_app server</field>
-      <field name="model_id" ref="model_gym_app_gym_app"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
+    <record model="ir.ui.view" id="gym_app.invoice_calendar">
+      <field name="name">Calendar Invoice</field>
+      <field name="model">gym_app.invoice_model</field>
+      <field name="arch" type="xml">
+        <calendar date_start="date" color="client_id" mode="month">
+          <field name="reference"/>
+          <field name="total"/>
+        </calendar>
       </field>
     </record>
--->
 
-    <!-- Top menu item -->
-<!--
-    <menuitem name="gym_app" id="gym_app.menu_root"/>
--->
-    <!-- menu categories -->
-<!--
-    <menuitem name="Menu 1" id="gym_app.menu_1" parent="gym_app.menu_root"/>
-    <menuitem name="Menu 2" id="gym_app.menu_2" parent="gym_app.menu_root"/>
--->
-    <!-- actions -->
-<!--
-    <menuitem name="List" id="gym_app.menu_1_list" parent="gym_app.menu_1"
-              action="gym_app.action_window"/>
-    <menuitem name="Server to list" id="gym_app" parent="gym_app.menu_2"
-              action="gym_app.action_server"/>
--->
+
+    <record model="ir.ui.view" id="gym_app.invoice_graph">
+      <field name="name">invoice graphic</field>
+      <field name="model">gym_app.invoice_model</field>
+      <field name="arch" type="xml">
+        <graph type="bar">
+          <field name="client_id" type="row"/>
+          <field name="date" interval="month"/>
+          <field name="total" type="measure"/>
+        </graph>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="gym_app.invoice_pivot">
+      <field name="name">invoice pivot</field>
+      <field name="model">gym_app.invoice_model</field>
+      <field name="arch" type="xml">
+        <pivot>
+          <field name="client_id" type="row"/>
+          <field name="reference"/>
+          <field name="date"/>
+          <field name="base"/>
+          <field name="vat"/>
+          <field name="total"/>
+          
+        </pivot>
+      </field>
+    </record>
+
+  <!-- Form definition-->
+  <record model="ir.ui.view" id="gym_app.invoice_model_form">
+    <field name="name">Invoice Form</field>
+    <field name="model">gym_app.invoice_model</field>
+    <field name="arch" type="xml">
+      <form string="invoice">
+        <header>
+          <!-- Boton que cambia estado y status bar-->
+          <button name="confirm_request" type="object" string="Confirm" class="oe_highlight"/>
+          <field name="state" widget="statusbar" />
+        </header>
+        <group name="top">
+          
+        </group>
+        <group name="left">
+          <!-- Cuando state es confirmed read only en todos los campos-->
+          <field name="reference" attrs="{'readonly':[('state','!=','status')]}"/>
+          <field name="date" attrs="{'readonly':[('state','=','confirmed')]}"/>
+          <field name="client_id" attrs="{'readonly':[('state','=','confirmed')]}"/>
+        </group>
+        <group name="right">
+          <field name="base" attrs="{'readonly':[('state','=','confirmed')]}"/>
+          <field name="vat" attrs="{'readonly':[('state','=','confirmed')]}"/>
+          <field name="total" attrs="{'readonly':[('state','=','confirmed')]}"/>
+          <field name="lines_ids" attrs="{'readonly':[('state','=','confirmed')]}">
+            <tree>
+              <field name="product_id" />
+               <field name="quantity"/>
+             </tree>
+            <form>
+               <label for="product_id" string="Product:"></label>
+              <br></br>
+               <field name="product_id"/>
+               <br></br>
+               <label for="quantity" string="Quantity:"></label>
+               <field name="quantity"/>
+             </form>
+           </field>
+         </group>
+      
+      </form>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="gym_app.invoice_model_search">
+    <field name="name">invoiceFilters</field>
+    <field name="model">gym_app.invoice_model</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name"/>
+        <filter string="Paid" name="Paid" domain="[('state','=','confirmed')]"></filter>
+        <filter string="Not Paid" name="NotPaid" domain="[('state','=','draft')]"></filter>
+      </search>
+    </field>
+  </record>
+
+
+  <!-- actions opening views on models -->
+
+  <record model="ir.actions.act_window" id="gym_app.action_window_invoice">
+    <field name="name">invoices</field>
+    <field name="res_model">gym_app.invoice_model</field>
+    <field name="view_mode">tree,form,calendar,graph,pivot</field>
+  </record>
+
+  <!-- Filters
+  
+      <record model="ir.ui.view" id="gym_app.task_model_search">
+        <field name="name">Student Filters</field>
+        <field name="model">validation_app.student_model</field>
+        <field name="arch" type="xml">
+          <search>
+            <field name="name"/>
+            <filter string="Finished" name="Finished" domain="[('active','=',False)]"></filter>
+            <filter string="Not Finished" name="NotFinished" domain="[('active','=',True)]"></filter>
+          </search>
+        </field>
+      </record>-->
+
+
+
+  <!-- server action to the one above -->
+  <!--
+      <record model="ir.actions.server" id="gym_app.action_server">
+        <field name="name">gym_app server</field>
+        <field name="model_id" ref="model_gym_app_gym_app"/>
+        <field name="state">code</field>
+        <field name="code">
+          action = {
+            "type": "ir.actions.act_window",
+            "view_mode": "tree,form",
+            "res_model": model._name,
+          }
+        </field>
+      </record>
+  -->
+
   </data>
 </odoo>

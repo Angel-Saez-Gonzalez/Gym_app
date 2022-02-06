@@ -12,11 +12,12 @@ class invoiceModel(models.Model):
     _description = 'Invoice Model'
     _sql_constraints = [('invoice_unique_ref','UNIQUE(reference)','The Ref must be unique!!!!')]
 
-    reference = fields.Integer(string="Ref", Required = True,index=True,help="Reference of the Invoice")
+    reference = fields.Integer(string="Ref", Required = True,index=True,help="Reference of the Invoice",default=lambda self: self._get_id())
     date = fields.Date(string="Date",default=datetime.now(),help="Date ofcreation of the Invoice")
     base = fields.Float(string="Base", Required = True,help="Total price without VAT",compute="_checkBase",store="true")
     vat = fields.Selection(string="VAT",selection=[('0','0'),('4','4'),('10','10'),('21','21')],default='21', help="VAT")
     total = fields.Float(string="Total", Required = True,help="Total price with VAT",compute="_checkTotal",store="true")
+    name = fields.Char(compute="_changename")
 
 
 
@@ -63,4 +64,18 @@ class invoiceModel(models.Model):
         return True
 
     #def _get_id(self):
-        #return (self.env['invoice_app.invoice_model'].search([])[-1].id + 1)
+        #return ( + 1)
+    
+    @api.depends("name")
+    def _changename(self):
+        if len(self.env['gym_app.invoice_model'].search([])) == 0:
+            id = 1
+        id = (self.env['gym_app.invoice_model'].search([])[-1].id + 1)
+        names = "Invoice " + str(self.reference)
+        self.name = names
+
+
+    def _get_id(self):
+          if len(self.env['gym_app.invoice_model'].search([])) == 0:
+               return 1
+          return (self.env['gym_app.invoice_model'].search([])[-1].id + 1)
