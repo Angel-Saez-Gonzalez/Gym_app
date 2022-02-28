@@ -52,10 +52,7 @@ class invoiceModel(models.Model):
         self._cr.autocommit(False)
         self.state= "confirmed"
         for rec in self.lines_ids:
-            if rec.quantity <= rec.product_id.stock:
-               rec.product_id.stock -= rec.quantity
-            else:
-                self._cr.rollback()
+            if rec.quantity >= rec.product_id.stock:
                 raise ValidationError("There is no Stock of "+rec.product_id.name+"!")
         #Se hace el commit          
         self._cr.commit()
@@ -68,12 +65,12 @@ class invoiceModel(models.Model):
     
     @api.depends("name")
     def _changename(self):
-        if len(self.env['gym_app.invoice_model'].search([])) == 0:
-            id = 1
-        id = (self.env['gym_app.invoice_model'].search([])[-1].id + 1)
+        #if len(self.env['gym_app.invoice_model'].search([])) == 0:
+        #    id = 1
+        #id = (self.env['gym_app.invoice_model'].search([])[-1].id + 1)
         names = "Invoice " + str(self.reference)
         self.name = names
-
+        
 
     def _get_id(self):
           if len(self.env['gym_app.invoice_model'].search([])) == 0:

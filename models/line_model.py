@@ -13,6 +13,8 @@ class lineModel(models.Model):
     invoice_id = fields.Many2one("gym_app.invoice_model", string="Invoice")
     product_id = fields.Many2one("gym_app.product_model", string="Product")
 
+    find_TypeProduct = fields.Selection(string="Type of the product", selection=[("m", "Merchandaising"), ("h", "Personal health"), ("s", "Supliments")], store=False)
+
     #Relations
 
     @api.constrains("quantity")
@@ -24,3 +26,12 @@ class lineModel(models.Model):
             return True
     
     
+    @api.onchange('find_TypeProduct')
+    def onchange_genre(self):
+        self.product_id = None
+        if self.find_TypeProduct:
+            domain = {'product_id': [('typeProduct', '=', self.find_TypeProduct)]}
+        else:
+            domain = {'product_id': [('typeProduct', '!=', '*ihg')]}
+
+        return {'domain': domain}

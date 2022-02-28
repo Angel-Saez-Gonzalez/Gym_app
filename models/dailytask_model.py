@@ -10,10 +10,10 @@ class dailytaskmodel(models.Model):
 
     name = fields.Char(string="Task name", Required = True,index=True,help="Name of the task")
     description = fields.Char(string="Task description", help="Description of the task")
-    date = fields.Date(string="Date of the tasks",Required=True,help="Put the date of the task you wanna complete")
+    times = fields.Integer(string="Times per week",Required=True,help="Put the time of the tas k per week")
 
     
     #Relations
-    client_ids = fields.Many2many("gym_app.client_model",string="Clients")
+    routine_ids = fields.Many2many("gym_app.routine_model",string="Routines")
     
    

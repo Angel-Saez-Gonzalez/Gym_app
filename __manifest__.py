@@ -24,6 +24,7 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
+        'security/gym_security.xml',
         'views/client_view.xml',
         'views/invoice_view.xml',
         'views/line_view.xml',
@@ -31,6 +32,7 @@
         'views/class_view.xml',
         'views/trainer_view.xml',
         'views/dailytask_view.xml',
+        'views/routine_view.xml',
         'views/menu.xml',
     ],
     # only loaded in demonstration mode

@@ -14,7 +14,8 @@ class productModel(models.Model):
     price = fields.Float(string="Product price", Required = True,default=0,help="Price of the Product")
     photo = fields.Binary(string="Product photo", Required=True,help="The photo of the product")
     stock = fields.Integer(string="Product stock", Required = True,help="Quantity of products in the stock")
-
+    
+    typeProduct = fields.Selection(string="Type of the product", selection=[("m", "Merchandaising"), ("h", "Personal health"), ("s", "Supliments")], default="s")
     
     #Relations
     lines_ids = fields.One2many("gym_app.line_model","product_id",string="Line")

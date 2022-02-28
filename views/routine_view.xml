@@ -1,47 +1,53 @@
 <odoo>
   <data>
-    <record model="ir.ui.view" id="gym_app.class_model_list">
-      <field name="name">Class List</field>
-      <field name="model">gym_app.class_model</field>
+    <record model="ir.ui.view" id="gym_app.routine_model_list">
+      <field name="name">routine List</field>
+      <field name="model">gym_app.routine_model</field>
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
-          <field name="description"/>
         </tree>
       </field>
     </record>
 
-    <record model="ir.ui.view" id="gym_app.class_model_form">
-      <field name="name">class Form</field>
-      <field name="model">gym_app.class_model</field>
+    <record model="ir.ui.view" id="gym_app.routine_model_form">
+      <field name="name">routine Form</field>
+      <field name="model">gym_app.routine_model</field>
       <field name="arch" type="xml">
-        <form string="class">
+        <form string="routine">
           <header>
             <!-- Buttons here-->
           </header>
           <notebook>
-            <page string="Information of the class">
+            <page string="Information of the Routine">
               <group>
                 <group name="left">
                   <field name="name"/>
-                  <!-- <field name="date"/>-->
                   <field name="description"/>
-                </group>
-                <group name="right">
                   <field name="photo" widget="image"/>
                 </group>
               </group>
             </page>
-            <page string="Participants">
-              <group name="top"><field name="trainer_id"></field></group>
+            <page string="Clients">
+              
               <group colspan="2">
                 <field name="client_ids">
                   <tree>
                     <field name="id_client"/>
                     <field name="name"/>
                     <field name="surname"/>
-                    <field name="phone"/>
-                    <field name="email"/>
+                    <field name="dni"/>
+                  </tree>
+                </field>
+              </group>
+            </page>
+            <page string="Tasks">
+              
+              <group colspan="2">
+                <field name="dailytask_ids">
+                  <tree>
+                    <field name="name"/>
+                    <field name="description"/>
                   </tree>
                 </field>
               </group>
@@ -51,28 +57,16 @@
       </field>
     </record>
 
-<!-- 
-      <record model="ir.ui.view" id="gym_app.class_calendar">
-      <field name="name">Calendar class</field>
-      <field name="model">gym_app.class_model</field>
-      <field name="arch" type="xml">
-        <calendar date_start="date" mode="month">
-          <field name="name"/>
-        </calendar>
-      </field>
-    </record>
--->
-    <record model="ir.ui.view" id="gym_app.class_kanban">
-      <field name="name">Class kanban</field>
-      <field name="model">gym_app.class_model</field>
+    <record model="ir.ui.view" id="gym_app.routine_kanban">
+      <field name="name">Routine kanban</field>
+      <field name="model">gym_app.routine_model</field>
       <field name="arch" type="xml">
         <kanban class="o_res_partner_kanban">
           <field name="name"/>
           <field name="description"/>
           <field name="photo"/>
           <field name="client_ids"/>
-          <!-- <field name="date"/>-->
-          <field name="trainer_id"/>
+          <field name="dailytask_ids"/>
           <templates>
             <t t-name="kanban-box">
               <div t-attf-class="oe_kanban_global_click">
@@ -83,10 +77,6 @@
                   <strong>
                     <field name="name" class="oe_inline"/>
                   </strong>
-                  <!-- <div t-if="record.date.value">
-                    <t t-esc="record.date.value"/>
-                  </div>
-                  -->
                 </div>
               </div>
             </t>
@@ -97,10 +87,10 @@
 
     <!-- actions opening views on models -->
 
-    <record model="ir.actions.act_window" id="gym_app.action_window_class">
-      <field name="name">Classes</field>
-      <field name="res_model">gym_app.class_model</field>
-      <field name="view_mode">kanban,tree,form<!-- ,calendar--></field>
+    <record model="ir.actions.act_window" id="gym_app.action_window_routine">
+      <field name="name">Routines</field>
+      <field name="res_model">gym_app.routine_model</field>
+      <field name="view_mode">kanban,tree,form</field>
     </record>
 
 

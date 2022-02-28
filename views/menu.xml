@@ -4,20 +4,24 @@
     <menuitem name="Gym App" id="gym_app.menu_root"/>
 
     <!-- menu categories -->
-    <menuitem name="Managment" id="gym_app.menu_operator" parent="gym_app.menu_root"/>
 
+    <menuitem name="Client Zone" id="gym_app.menu_client" parent="gym_app.menu_root" />
+
+    <menuitem name="Managment" id="gym_app.menu_managment" parent="gym_app.menu_root" groups="gym_group_adm,gym_group_empl"/>
+
+    <!-- Lo de dentro-->
    
-    <menuitem name="Clients" id="gym_app.menu_client_list" parent="gym_app.menu_operator" action="gym_app.action_window_client"/>
+    <menuitem name="Clients" id="gym_app.menu_client_list" parent="gym_app.menu_client" action="gym_app.action_window_client"/>
 
-    <menuitem name="Products" id="gym_app.menu_product_list" parent="gym_app.menu_operator" action="gym_app.action_window_product"/>
+    <menuitem name="Products" id="gym_app.menu_product_list" parent="gym_app.menu_managment" action="gym_app.action_window_product"/>
 
-    <menuitem name="Invoice" id="gym_app.menu_invoice_list" parent="gym_app.menu_operator" action="gym_app.action_window_invoice"/>
+    <menuitem name="Invoice" id="gym_app.menu_invoice_list" parent="gym_app.menu_managment" action="gym_app.action_window_invoice"/>
 
-    <menuitem name="Class" id="gym_app.menu_class_list" parent="gym_app.menu_operator" action="gym_app.action_window_class"/>
+    <menuitem name="Class" id="gym_app.menu_class_list" parent="gym_app.menu_client" action="gym_app.action_window_class"/>
 
-    <menuitem name="Trainers" id="gym_app.menu_trainer_list" parent="gym_app.menu_operator" action="gym_app.action_window_trainer"/>
-    
-    <menuitem name="Daily Tasks" id="gym_app.menu_dailytask_list" parent="gym_app.menu_operator" action="gym_app.action_window_dailytask"/>
+    <menuitem name="Trainers" id="gym_app.menu_trainer_list" parent="gym_app.menu_managment" action="gym_app.action_window_trainer"/>
+
+    <menuitem name="Routines" id="gym_app.menu_routine_list" parent="gym_app.menu_client" action="gym_app.action_window_routine"/>
 
     </data>
 </odoo>

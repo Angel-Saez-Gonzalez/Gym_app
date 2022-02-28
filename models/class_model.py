@@ -12,9 +12,10 @@ class classModel(models.Model):
 
     name = fields.Char(string="class name", Required = True,index=True,help="Name of the class")
     description = fields.Char(string="class description", help="Description of the class")
+    photo = fields.Binary(string="Picture", help="Picture of the routine")
 
     #Debo controlar que no se añada la clase 
-    date = fields.Date(string="Date of the class",Required = True,help="The date of the class")
+    #date = fields.Date(string="Date of the class",Required = True,help="The date of the class")
 
     
     #Relations with trainer and client(many2many)

@@ -24,6 +24,7 @@
           <field name="name"/>
           <field name="description"/>
           <field name="price"/>
+          <field name="typeProduct"/>
           <field name="stock" decoration-danger="stock &lt; 10" decoration-warning="stock &lt; 25"/>
           <templates>
             <t t-name="kanban-box">
@@ -40,6 +41,9 @@
                   </div>
                   <div t-if="record.stock.value">
                     <t t-esc="record.stock.value"/>
+                  </div>
+                  <div t-if="record.typeProduct.value">
+                    <t t-esc="record.typeProduct.value"/>
                   </div>
                 </div>
               </div>
@@ -62,6 +66,7 @@
             <group name="left">
               <field name="name"/>
               <field name="description"/>
+              <field name="typeProduct"/>
               <field name="price"/>
               <field name="stock"/>
             </group>

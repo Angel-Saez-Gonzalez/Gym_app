@@ -1,0 +1,27 @@
+<odoo>
+
+    <record id="module_gym_category" model="ir.module.category">
+        <field name="name">Gym</field>
+    </record>
+
+    <!-- gym User Group -->
+    <record id="gym_group_normuser" model="res.groups">
+        <field name="name">Usuario</field>
+        <field name="category_id" ref="module_gym_category"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- gym Employee Group -->
+    <record id="gym_group_empl" model="res.groups">
+        <field name="name">Employee</field>
+        <field name="category_id" ref="module_gym_category"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    
+    <!-- gym Administrative Group -->
+    <record id="gym_group_adm" model="res.groups">
+        <field name="name">Admin</field>
+        <field name="category_id" ref="module_gym_category"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>
